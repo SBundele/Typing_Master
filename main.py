@@ -5,9 +5,28 @@ paragraphs = [
     "They also inspire us to face the hardships of life courageously. Nowadays there are innumerable books and time is scarce. So we should read only the best and the greatest among them. With the help of books we shall be able to make our thinking mature and our life more meaningful and worthwhile."
     ]
 
+
+def typing_test(name,para):
+    pass
+
+def show_leaderboard():
+    pass
+
 def main():
     # Take the input
     user_name = input("Enter your name: ")
-    print("1.Start Typing Test 2. ")
-    option = input("Choose you option (1/2/3): ")
-    print(option)
+    print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
+    user_choice = input("Choose you option (1/2/3): ")
+    
+    while True:
+        if user_choice == "1":
+            typing_test(user_name,paragraphs)
+        elif user_choice == "2":
+            show_leaderboard()
+        elif user_choice == "3":
+            print("Thank you for using the app!!")
+            break
+        else:
+            print("Invalid input")     
+            
+main()
