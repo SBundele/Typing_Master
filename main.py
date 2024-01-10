@@ -7,8 +7,12 @@ paragraphs = [
 
 
 def typing_test(name,para):
-    pass
-
+    import random
+    test_para = random.choice(para)
+    print("*****Test Paragraph*****")
+    print(test_para)
+    user_input = input("*****Type the above Paragraph*****\n")
+    
 def show_leaderboard():
     pass
 
@@ -18,15 +22,13 @@ def main():
     print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
     user_choice = input("Choose you option (1/2/3): ")
     
-    while True:
-        if user_choice == "1":
-            typing_test(user_name,paragraphs)
-        elif user_choice == "2":
-            show_leaderboard()
-        elif user_choice == "3":
-            print("Thank you for using the app!!")
-            break
-        else:
-            print("Invalid input")     
-            
+    if user_choice == "1":
+        typing_test(user_name,paragraphs)
+    elif user_choice == "2":
+        show_leaderboard()
+    elif user_choice == "3":
+        print("Thank you for using the app!!")
+    else:
+        print("Invalid input")     
+        
 main()
