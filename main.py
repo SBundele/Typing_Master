@@ -61,6 +61,7 @@ def main():
     # Take the input
     user_name = input("Enter your name: ")
     while True:
+        print()
         print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
         user_choice = input("Choose you option (1/2/3): ")
         
@@ -72,6 +73,7 @@ def main():
         elif user_choice == "3":
             print()
             print("Thank you for using the app!!")
+            print()
             break
         else:
             print("Invalid input")     
