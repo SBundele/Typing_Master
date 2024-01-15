@@ -8,7 +8,21 @@ paragraphs = [
     ]
 
 
+def inputLength(user_inp):
+    arr = user_inp.split(" ")
+    return len(arr)
 
+def calculate_time(st_time,ed_time,user_inp,error):
+    time_delay = ed_time - st_time
+    time_r = round(time_delay,2)
+    # minute conversion
+    minute_conversion = round(time_r/60)
+    # length calculation
+    length = inputLength(user_inp)
+    # WPA calculation
+    speed = round(length/minute_conversion)
+    # result
+    print(f"Typing Speed: {speed} WPA(Words Per Minute) \nError: {error}")
 
 def user_result(name,user_input,para,st,et):
     error = 0
@@ -18,16 +32,19 @@ def user_result(name,user_input,para,st,et):
                 error += 1 
         except:
             error += 1
-    return error
+    return calculate_time(st,et,user_input,error)
 
 def typing_test(name,para):
     import random
     test_para = random.choice(para)
     print("*****Test Paragraph*****")
+    print()
     print(test_para)
+    print()
     start_time = time()
-    user_input = input("*****Type the above Paragraph*****\n")
+    user_input = input("*****Type the above Paragraph*****\n Enter: ")
     end_time = time()
+    print()
     result = user_result(name,user_input,test_para,start_time,end_time)
     return result
 
@@ -42,7 +59,6 @@ def main():
     
     if user_choice == "1":
         score = typing_test(user_name,paragraphs)
-        print(score)
     elif user_choice == "2":
         show_leaderboard()
     elif user_choice == "3":
