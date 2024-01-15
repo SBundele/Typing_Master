@@ -1,3 +1,5 @@
+from time import *
+
 paragraphs = [
     "Scolding is something common in student life. Being a naughty boy, I am always scolded by my parents. But one day I was severely scolded by my English teacher. She infect teaches well. But that day, I could not resist the temptation that an adventure of Nancy Drew offered. While she was teaching, I was completely engrossed in reading that book. Nancy Drew was caught in the trap laid by some smugglers and it was then when I felt a light tap on my bent head.", 
     "The teacher had caught me red handed. She scolded me then and there and insulted me in front of the whole class. I was embarrassed. My cheeks burned being guilty conscious. When the class was over, I went to the teacher to apologize. When she saw that I had realized my mistake, she cooled down and then told me in a very kind manner how disheartening it was when she found any student not paying attention. I was genuinely sorry and promised to myself never to commit such a mistake again.",
@@ -6,8 +8,28 @@ paragraphs = [
     ]
 
 
+
+
+def user_result(name,user_input,para,st,et):
+    error = 0
+    for i in range(len(para)):
+        try:
+            if user_input[i] != para[i]:
+                error += 1 
+        except:
+            error += 1
+    return error
+
 def typing_test(name,para):
-    pass
+    import random
+    test_para = random.choice(para)
+    print("*****Test Paragraph*****")
+    print(test_para)
+    start_time = time()
+    user_input = input("*****Type the above Paragraph*****\n")
+    end_time = time()
+    result = user_result(name,user_input,test_para,start_time,end_time)
+    return result
 
 def show_leaderboard():
     pass
@@ -18,15 +40,14 @@ def main():
     print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
     user_choice = input("Choose you option (1/2/3): ")
     
-    while True:
-        if user_choice == "1":
-            typing_test(user_name,paragraphs)
-        elif user_choice == "2":
-            show_leaderboard()
-        elif user_choice == "3":
-            print("Thank you for using the app!!")
-            break
-        else:
-            print("Invalid input")     
-            
+    if user_choice == "1":
+        score = typing_test(user_name,paragraphs)
+        print(score)
+    elif user_choice == "2":
+        show_leaderboard()
+    elif user_choice == "3":
+        print("Thank you for using the app!!")
+    else:
+        print("Invalid input")     
+        
 main()
