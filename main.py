@@ -7,7 +7,7 @@ paragraphs = [
     "They also inspire us to face the hardships of life courageously. Nowadays there are innumerable books and time is scarce. So we should read only the best and the greatest among them. With the help of books we shall be able to make our thinking mature and our life more meaningful and worthwhile."
     ]
 
-
+# Speed and Accuracy calculation function
 def inputLength(user_inp):
     arr = user_inp.split(" ")
     return len(arr)
@@ -23,8 +23,9 @@ def calculate_time(st_time,ed_time,user_inp,error):
     speed = round(length/minute_conversion)
     # result
     print(f"Typing Speed: {speed} WPA(Words Per Minute) \nError: {error}")
+    return speed,error
 
-def user_result(name,user_input,para,st,et):
+def user_result(user_input,para,st,et):
     error = 0
     for i in range(len(para)):
         try:
@@ -34,7 +35,7 @@ def user_result(name,user_input,para,st,et):
             error += 1
     return calculate_time(st,et,user_input,error)
 
-def typing_test(name,para):
+def typing_test(para):
     import random
     test_para = random.choice(para)
     print("*****Test Paragraph*****")
@@ -45,8 +46,13 @@ def typing_test(name,para):
     user_input = input("*****Type the above Paragraph*****\n Enter: ")
     end_time = time()
     print()
-    result = user_result(name,user_input,test_para,start_time,end_time)
-    return result
+    speed,error = user_result(user_input,test_para,start_time,end_time)
+    return speed,error
+
+
+# Leaderboard functions
+def maintain_leaderboard(speed,error,name):
+    pass
 
 def show_leaderboard():
     pass
@@ -54,16 +60,22 @@ def show_leaderboard():
 def main():
     # Take the input
     user_name = input("Enter your name: ")
-    print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
-    user_choice = input("Choose you option (1/2/3): ")
-    
-    if user_choice == "1":
-        score = typing_test(user_name,paragraphs)
-    elif user_choice == "2":
-        show_leaderboard()
-    elif user_choice == "3":
-        print("Thank you for using the app!!")
-    else:
-        print("Invalid input")     
+    while True:
+        print()
+        print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
+        user_choice = input("Choose you option (1/2/3): ")
         
+        if user_choice == "1":
+            speed,error = typing_test(paragraphs)
+            maintain_leaderboard(speed,error,user_name)
+        elif user_choice == "2":
+            show_leaderboard()
+        elif user_choice == "3":
+            print()
+            print("Thank you for using the app!!")
+            print()
+            break
+        else:
+            print("Invalid input")     
+            
 main()
