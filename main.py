@@ -12,7 +12,7 @@ def inputLength(user_inp):
     arr = user_inp.split(" ")
     return len(arr)
 
-def calculate_time(st_time,ed_time,user_inp,error):
+def calculate_time(st_time,ed_time,user_inp,accuracy):
     time_delay = ed_time - st_time
     time_r = round(time_delay,2)
     # minute conversion
@@ -22,18 +22,22 @@ def calculate_time(st_time,ed_time,user_inp,error):
     # WPA calculation
     speed = round(length/minute_conversion)
     # result
-    print(f"Typing Speed: {speed} WPA(Words Per Minute) \nError: {error}")
-    return speed,error
+    print(f"Typing Speed: {speed} WPA(Words Per Minute) \nAccuracy: {accuracy}%")
+    return speed,accuracy
 
 def user_result(user_input,para,st,et):
-    error = 0
-    for i in range(len(para)):
+    correct_word = 0
+    arr = para.split(" ")
+    arr1 = user_input.split(" ")
+    original_length = len(arr)
+    for i in range(len(arr)):
         try:
-            if user_input[i] != para[i]:
-                error += 1 
+            if arr[i] == arr1[i]:
+                correct_word += 1
         except:
-            error += 1
-    return calculate_time(st,et,user_input,error)
+            continue
+    accuracy = round((correct_word/original_length)*100)
+    return calculate_time(st,et,user_input,accuracy)
 
 def typing_test(para):
     import random
