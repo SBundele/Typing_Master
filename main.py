@@ -60,22 +60,21 @@ def show_leaderboard():
 def main():
     # Take the input
     user_name = input("Enter your name: ")
-    while True:
+    print()
+    print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
+    user_choice = input("Choose you option (1/2/3): ")
+    
+    if user_choice == "1":
+        speed,error = typing_test(paragraphs)
+        maintain_leaderboard(speed,error,user_name)
+    elif user_choice == "2":
+        show_leaderboard()
+    elif user_choice == "3":
         print()
-        print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
-        user_choice = input("Choose you option (1/2/3): ")
+        print("Thank you for using the app!!")
+        print()
+    else:
+        print("Invalid input")   
+        print()  
         
-        if user_choice == "1":
-            speed,error = typing_test(paragraphs)
-            maintain_leaderboard(speed,error,user_name)
-        elif user_choice == "2":
-            show_leaderboard()
-        elif user_choice == "3":
-            print()
-            print("Thank you for using the app!!")
-            print()
-            break
-        else:
-            print("Invalid input")     
-            
 main()
