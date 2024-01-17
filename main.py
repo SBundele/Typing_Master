@@ -75,9 +75,16 @@ def maintain_leaderboard(speed,accuracy,name,data,json_file = "leaderboard.json"
     
     with open(json_file,"w") as file:
         json.dump(data,file,indent=2)
+    
+    show_leaderboard(data)
        
-def show_leaderboard():
-    pass
+def show_leaderboard(data):
+    print()
+    print("----Leaderboard----")
+    for user in data:
+        print(f"Username: {user}, speed: {data[user][0]} WPA, accuracy: {data[user][1]}%")
+    print()
+    print("Thankyou for using the app!!\nWish you Best of Luck!!")
 
 def main(data):
     # Take the input
