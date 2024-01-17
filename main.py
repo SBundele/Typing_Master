@@ -1,10 +1,11 @@
 from time import *
+import json
 
 paragraphs = [
-    "Scolding is something common in student life. Being a naughty boy, I am always scolded by my parents. But one day I was severely scolded by my English teacher. She infect teaches well. But that day, I could not resist the temptation that an adventure of Nancy Drew offered. While she was teaching, I was completely engrossed in reading that book. Nancy Drew was caught in the trap laid by some smugglers and it was then when I felt a light tap on my bent head.", 
-    "The teacher had caught me red handed. She scolded me then and there and insulted me in front of the whole class. I was embarrassed. My cheeks burned being guilty conscious. When the class was over, I went to the teacher to apologize. When she saw that I had realized my mistake, she cooled down and then told me in a very kind manner how disheartening it was when she found any student not paying attention. I was genuinely sorry and promised to myself never to commit such a mistake again.",
-    "Studying is the main source of knowledge. Books are indeed never failing friends of man. For a mature mind, reading is the greatest source of pleasure and solace to distressed minds. The study of good books ennobles us and broadens our outlook. Therefore, the habit of reading should be cultivated. A student should never confine himself to his schoolbooks only.",
-    "They also inspire us to face the hardships of life courageously. Nowadays there are innumerable books and time is scarce. So we should read only the best and the greatest among them. With the help of books we shall be able to make our thinking mature and our life more meaningful and worthwhile."
+    "Scolding is something common in student life. Being a naughty boy, I am always scolded by my parents. But one day I was severely scolded by my English teacher.", 
+    "The teacher had caught me red handed. She scolded me then and there and insulted me in front of the whole class. I was embarrassed. My cheeks burned being guilty conscious.",
+    "Studying is the main source of knowledge. Books are indeed never failing friends of man. For a mature mind, reading is the greatest source of pleasure and solace to distressed minds.",
+    "They also inspire us to face the hardships of life courageously. Nowadays there are innumerable books and time is scarce. So we should read only the best and the greatest among them."
     ]
 
 # Speed and Accuracy calculation function
@@ -20,9 +21,13 @@ def calculate_time(st_time,ed_time,user_inp,accuracy):
     # length calculation
     length = inputLength(user_inp)
     # WPA calculation
-    speed = round(length/minute_conversion)
+    try:
+        speed = round(length/minute_conversion)
     # result
+    except:
+        speed = round(length/(time_r/60),2)
     print(f"Typing Speed: {speed} WPA(Words Per Minute) \nAccuracy: {accuracy}%")
+     
     return speed,accuracy
 
 def user_result(user_input,para,st,et):
@@ -30,13 +35,16 @@ def user_result(user_input,para,st,et):
     arr = para.split(" ")
     arr1 = user_input.split(" ")
     original_length = len(arr)
+    
     for i in range(len(arr)):
         try:
             if arr[i] == arr1[i]:
                 correct_word += 1
         except:
             continue
+        
     accuracy = round((correct_word/original_length)*100)
+    
     return calculate_time(st,et,user_input,accuracy)
 
 def typing_test(para):
@@ -50,27 +58,27 @@ def typing_test(para):
     user_input = input("*****Type the above Paragraph*****\n Enter: ")
     end_time = time()
     print()
-    speed,error = user_result(user_input,test_para,start_time,end_time)
-    return speed,error
-
+    speed,accuracy = user_result(user_input,test_para,start_time,end_time)
+    
+    return speed,accuracy
 
 # Leaderboard functions
-def maintain_leaderboard(speed,error,name):
+def maintain_leaderboard(speed,accuracy,name):
     pass
-
+       
 def show_leaderboard():
     pass
 
 def main():
     # Take the input
-    user_name = input("Enter your name: ")
+    user_name = input("Enter your user_name: ")
     print()
     print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
     user_choice = input("Choose you option (1/2/3): ")
     
     if user_choice == "1":
-        speed,error = typing_test(paragraphs)
-        maintain_leaderboard(speed,error,user_name)
+        speed,accuracy = typing_test(paragraphs)
+        maintain_leaderboard(speed,accuracy,user_name)
     elif user_choice == "2":
         show_leaderboard()
     elif user_choice == "3":
@@ -80,5 +88,5 @@ def main():
     else:
         print("Invalid input")   
         print()  
-        
+     
 main()
