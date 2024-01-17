@@ -8,6 +8,30 @@ paragraphs = [
     "They also inspire us to face the hardships of life courageously. Nowadays there are innumerable books and time is scarce. So we should read only the best and the greatest among them."
     ]
 
+# Leaderboard functions
+def maintain_leaderboard(speed,accuracy,name,data,json_file = "leaderboard.json"):
+    if name not in data:
+        data[name] = [speed,accuracy]
+    else:
+        exist = round(data[name][1]/data[name][0],4)
+        new = round(accuracy/speed,4)
+        if exist < new:
+            data[name][0] = speed
+            data[name][1] = accuracy
+    
+    with open(json_file,"w") as file:
+        json.dump(data,file,indent=2)
+    
+    show_leaderboard(data)
+       
+def show_leaderboard(data):
+    print()
+    print("----Leaderboard----")
+    for user in data:
+        print(f"Username: {user}, speed: {data[user][0]} WPA, accuracy: {data[user][1]}%")
+    print()
+    print("Thankyou for using the app!!\nWish you Best of Luck!!")
+
 # Speed and Accuracy calculation function
 def inputLength(user_inp):
     arr = user_inp.split(" ")
@@ -62,30 +86,6 @@ def typing_test(para):
     
     return speed,accuracy
 
-# Leaderboard functions
-def maintain_leaderboard(speed,accuracy,name,data,json_file = "leaderboard.json"):
-    if name not in data:
-        data[name] = [speed,accuracy]
-    else:
-        exist = round(data[name][1]/data[name][0],4)
-        new = round(accuracy/speed,4)
-        if exist < new:
-            data[name][0] = speed
-            data[name][1] = accuracy
-    
-    with open(json_file,"w") as file:
-        json.dump(data,file,indent=2)
-    
-    show_leaderboard(data)
-       
-def show_leaderboard(data):
-    print()
-    print("----Leaderboard----")
-    for user in data:
-        print(f"Username: {user}, speed: {data[user][0]} WPA, accuracy: {data[user][1]}%")
-    print()
-    print("Thankyou for using the app!!\nWish you Best of Luck!!")
-
 def existing_user(status,data):
     name = input("Enter your username: ")
     print()
@@ -116,7 +116,7 @@ def main(data):
         speed,accuracy = typing_test(paragraphs)
         maintain_leaderboard(speed,accuracy,user_name,data)
     elif user_choice == "2":
-        show_leaderboard()
+        show_leaderboard(data)
     elif user_choice == "3":
         print()
         print("Thank you for using the app!!")
@@ -125,7 +125,6 @@ def main(data):
         print("Invalid input")   
         print()  
         
-
 file = open("leaderboard.json","r")
 data = json.load(file) 
     
