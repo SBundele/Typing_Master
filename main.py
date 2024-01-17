@@ -86,9 +86,28 @@ def show_leaderboard(data):
     print()
     print("Thankyou for using the app!!\nWish you Best of Luck!!")
 
+def existing_user(status,data):
+    name = input("Enter your username: ")
+    print()
+    if status == 'y':
+        while True:
+            if name not in data:
+                print("Invalid username")
+                name = input("Enter your username: ")
+            else:
+                return name
+    else:
+        while True:
+            if name in data:
+                print("name already exists")
+                name = input("Enter your username: ")
+            else:
+                return name
+
 def main(data):
     # Take the input
-    user_name = input("Enter your user_name: ")
+    status = input("Have you given the test before ? (y/n): ")
+    user_name = existing_user(status,data)
     print()
     print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
     user_choice = input("Choose you option (1/2/3): ")
