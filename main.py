@@ -63,13 +63,23 @@ def typing_test(para):
     return speed,accuracy
 
 # Leaderboard functions
-def maintain_leaderboard(speed,accuracy,name):
-    pass
+def maintain_leaderboard(speed,accuracy,name,data,json_file = "leaderboard.json"):
+    if name not in data:
+        data[name] = [speed,accuracy]
+    else:
+        exist = round(data[name][1]/data[name][0],4)
+        new = round(accuracy/speed,4)
+        if exist < new:
+            data[name][0] = speed
+            data[name][1] = accuracy
+    
+    with open(json_file,"w") as file:
+        json.dump(data,file,indent=2)
        
 def show_leaderboard():
     pass
 
-def main():
+def main(data):
     # Take the input
     user_name = input("Enter your user_name: ")
     print()
@@ -78,7 +88,7 @@ def main():
     
     if user_choice == "1":
         speed,accuracy = typing_test(paragraphs)
-        maintain_leaderboard(speed,accuracy,user_name)
+        maintain_leaderboard(speed,accuracy,user_name,data)
     elif user_choice == "2":
         show_leaderboard()
     elif user_choice == "3":
@@ -88,5 +98,9 @@ def main():
     else:
         print("Invalid input")   
         print()  
-     
-main()
+        
+
+file = open("leaderboard.json","r")
+data = json.load(file) 
+    
+main(data)
