@@ -25,10 +25,14 @@ def maintain_leaderboard(speed,accuracy,name,data,json_file = "leaderboard.json"
     show_leaderboard(data)
        
 def show_leaderboard(data):
+    sorted_leaderboard = sorted(data.items(), key=lambda x: (x[1][1], -x[1][0]), reverse=True)
+    
     print()
     print("----Leaderboard----")
-    for user in data:
-        print(f"Username: {user}, speed: {data[user][0]} WPA, accuracy: {data[user][1]}%")
+    rank = 1
+    for user in sorted_leaderboard:
+        print(f"Rank {rank}: {user[0]}, speed: {user[1][0]} WPA, accuracy: {user[1][1]}%")
+        rank += 1
     print()
     print("Thankyou for using the app!!\nWish you Best of Luck!!")
 
@@ -106,13 +110,16 @@ def existing_user(status,data):
 
 def main(data):
     # Take the input
-    status = input("Have you given the test before ? (y/n): ")
-    user_name = existing_user(status,data)
+    
+    print("Welcome to the Typing Test App")
     print()
     print("1.Start Typing Test 2.Show Leaderboard 3.Exit ")
     user_choice = input("Choose you option (1/2/3): ")
+    print()
     
     if user_choice == "1":
+        status = input("Have you given the test before ? (y/n): ")
+        user_name = existing_user(status,data)
         speed,accuracy = typing_test(paragraphs)
         maintain_leaderboard(speed,accuracy,user_name,data)
     elif user_choice == "2":
